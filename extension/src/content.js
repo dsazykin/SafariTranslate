@@ -329,17 +329,18 @@
     const units = byViewportDistance(collectUnits(root));
 
     const jobs = [];
+    // The tab label is the single most visible string on the page, so translate
+    // it first rather than letting it trail a few hundred paragraphs.
+    if (IS_TOP && originalTitle === null && document.title && HAS_LETTER.test(document.title)) {
+      originalTitle = document.title;
+      jobs.push({ kind: 'title', text: document.title });
+    }
     for (const unit of units) {
       const serialized = serialize(unit);
       if (!serialized.text || !HAS_LETTER.test(serialized.text)) continue;
       jobs.push({ kind: 'unit', unit, text: serialized.text, serialized });
     }
     for (const job of collectAttrJobs(root)) jobs.push({ kind: 'attr', ...job });
-
-    if (IS_TOP && originalTitle === null && document.title && HAS_LETTER.test(document.title)) {
-      originalTitle = document.title;
-      jobs.push({ kind: 'title', text: document.title });
-    }
     if (!jobs.length) return { detected: null, count: 0 };
 
     const limits = await send({ type: 'limits' });
