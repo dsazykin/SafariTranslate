@@ -70,19 +70,24 @@ Command Line Tools are not enough.
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 sudo xcodebuild -license accept
 
-# 2. Build, sign ad-hoc, and install to /Applications:
+# 2. Build, sign ad-hoc, register with Safari:
 npm run build
 ```
 
-Then, once:
+The app is built to `~/Applications/SafariTranslate/` and launched once to register the
+extension. That path matters: Xcode's own `RegisterWithLaunchServices` step binds the
+extension to whatever path it builds into, and registering a *copy* elsewhere afterwards
+does not take — PlugInKit keeps pointing at the build location. So the build writes
+straight to its final home rather than building and then copying to `/Applications`.
+Override with `INSTALL_DIR=/some/path npm run build`.
 
-1. Open `/Applications/SafariTranslate.app` once so Safari registers the extension. It is
-   just a container app; quit it afterwards.
-2. Safari → Settings → Advanced → **Show features for web developers**.
-3. Safari → Settings → Developer → **Allow unsigned extensions**.
+Then, once, in Safari:
+
+1. Settings → Advanced → **Show features for web developers**.
+2. Settings → Developer → **Allow unsigned extensions**.
    Ad-hoc signed builds need this, and **it resets every time Safari restarts**. Signing
    with a paid Apple Developer certificate ($99/yr) makes the install permanent.
-4. Safari → Settings → Extensions → enable **SafariTranslate** and grant site access.
+3. Settings → Extensions → enable **SafariTranslate** and grant site access.
    "Always Allow on Every Website" matches how Chrome's translator behaves.
 
 ## Tests
