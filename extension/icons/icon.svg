@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b9dff"/>
+      <stop offset="1" stop-color="#0060df"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- Latin "A" -->
+  <path d="M104 340 L168 172 L214 172 L278 340 L234 340 L220 300 L162 300 L148 340 Z
+           M174 264 L208 264 L191 216 Z" fill="#ffffff"/>
+  <!-- CJK glyph, drawn as strokes so it stays legible at 16px -->
+  <g fill="#ffffff">
+    <rect x="272" y="196" width="152" height="22" rx="11"/>
+    <rect x="337" y="164" width="22" height="44" rx="11"/>
+    <rect x="337" y="218" width="22" height="120" rx="11"/>
+    <path d="M330 236 L352 250 L300 344 L276 328 Z"/>
+    <path d="M366 236 L344 250 L396 344 L420 328 Z"/>
+  </g>
+</svg>
