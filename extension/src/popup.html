@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SafariTranslate</title>
+<link rel="stylesheet" href="popup.css">
+<body>
+  <div class="row row--langs">
+    <label class="field">
+      <span class="field__label">From</span>
+      <select id="source"></select>
+    </label>
+    <span class="arrow" aria-hidden="true">→</span>
+    <label class="field">
+      <span class="field__label">To</span>
+      <select id="target"></select>
+    </label>
+  </div>
+
+  <div class="row">
+    <button id="primary" class="btn btn--primary">Translate page</button>
+    <button id="revert" class="btn" hidden>Show original</button>
+  </div>
+
+  <p id="status" class="status"></p>
+
+  <div class="row row--policy">
+    <label class="check"><input type="checkbox" id="always"> Always translate <b id="host"></b></label>
+    <label class="check"><input type="checkbox" id="never"> Never translate this site</label>
+  </div>
+
+  <div class="footer">
+    <span id="provider" class="muted"></span>
+    <a href="#" id="options">Settings</a>
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
