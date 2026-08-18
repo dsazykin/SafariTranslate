@@ -1,0 +1,13 @@
+{
+  "name": "safari-translate",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-page translation for Safari, in the style of Chrome's Google Translate.",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/test-engine.mjs",
+    "test:real": "node tests/test-real.mjs",
+    "build": "./scripts/build-safari.sh"
+  },
+  "devDependencies": { "jsdom": "^26.0.0" }
+}
