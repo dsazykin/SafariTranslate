@@ -1,0 +1,52 @@
+.st-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+.st-banner__text { margin-right: auto; }
+.st-banner__text b { font-weight: 600; }
+.st-banner__btn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.st-banner__btn:hover { background: #ececef; }
+.st-banner__btn--primary {
+  background: #0071e3;
+  border-color: #0071e3;
+  color: #fff;
+  font-weight: 500;
+}
+.st-banner__btn--primary:hover { background: #0077ed; }
+.st-banner__close {
+  appearance: none;
+  border: 0;
+  background: none;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 6px;
+  cursor: pointer;
+  color: #6e6e73;
+}
+@media (prefers-color-scheme: dark) {
+  .st-banner { background: #2c2c2e; color: #f5f5f7; border-bottom-color: rgba(255,255,255,0.14); }
+  .st-banner__btn { background: #3a3a3c; border-color: rgba(255,255,255,0.18); }
+  .st-banner__btn:hover { background: #48484a; }
+  .st-banner__close { color: #aeaeb2; }
+}
