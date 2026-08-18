@@ -65,6 +65,22 @@ on 429/5xx.
 Safari extensions must be wrapped in a signed macOS app, which needs **full Xcode** — the
 Command Line Tools are not enough.
 
+Signing matters more than it looks. Safari will not list an **ad-hoc signed** extension in
+its Extensions pane at all; the only way to load one is Develop → Add Temporary Extension,
+which is discarded the moment Safari quits. ("Allow unsigned extensions" only gates that
+temporary flow — it does not make an ad-hoc extension permanent.) A real certificate fixes
+this, and a **free Apple ID is enough** — no paid developer program required:
+
+1. Xcode → Settings → Accounts → **+** → sign in with any Apple ID.
+2. Select the account → **Manage Certificates…** → **+** → **Apple Development**.
+3. `npm run build` detects the certificate and uses it automatically.
+
+If `security find-identity -v -p codesigning` reports the certificate but says
+`0 valid identities`, the WWDR intermediate is missing or expired — install the current one
+from <https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer>.
+
+The certificate is valid for a year; re-run `npm run build` to re-sign when it lapses.
+
 ```sh
 # 1. Install Xcode from the App Store, then point the toolchain at it:
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
@@ -84,10 +100,7 @@ Override with `INSTALL_DIR=/some/path npm run build`.
 Then, once, in Safari:
 
 1. Settings → Advanced → **Show features for web developers**.
-2. Settings → Developer → **Allow unsigned extensions**.
-   Ad-hoc signed builds need this, and **it resets every time Safari restarts**. Signing
-   with a paid Apple Developer certificate ($99/yr) makes the install permanent.
-3. Settings → Extensions → enable **SafariTranslate** and grant site access.
+2. Settings → Extensions → enable **SafariTranslate** and grant site access.
    "Always Allow on Every Website" matches how Chrome's translator behaves.
 
 ## Tests

@@ -41,14 +41,37 @@ xcrun safari-web-extension-converter "$EXT" \
   --force
 
 PROJ="$BUILD/$APP_NAME/$APP_NAME.xcodeproj"
+
+# Safari only lists an ad-hoc signed extension through the Develop menu's
+# temporary-extension flow, which does not survive quitting Safari. A real Apple
+# Development certificate (free with any Apple ID) makes the install permanent,
+# so prefer one when the keychain has it.
+SIGN_ID="$(security find-identity -v -p codesigning 2>/dev/null \
+  | awk -F'"' '/Developer ID Application|Apple Development/ {print $2; exit}')"
+
+if [[ -n "$SIGN_ID" ]]; then
+  TEAM_ID="$(security find-certificate -c "$SIGN_ID" -p 2>/dev/null \
+    | openssl x509 -noout -subject -nameopt multiline 2>/dev/null \
+    | awk -F'= ' '/organizationalUnitName/ {print $2; exit}')"
+  echo "==> Signing as: $SIGN_ID (team ${TEAM_ID:-unknown})"
+  SIGN_ARGS=(CODE_SIGN_STYLE=Automatic "CODE_SIGN_IDENTITY=${SIGN_ID%%:*}" -allowProvisioningUpdates)
+  [[ -n "$TEAM_ID" ]] && SIGN_ARGS+=("DEVELOPMENT_TEAM=$TEAM_ID")
+else
+  echo "==> No signing certificate found; falling back to ad-hoc." >&2
+  echo "    Safari will only load this via Develop > Add Temporary Extension," >&2
+  echo "    which is lost when Safari quits. See README for how to get a free" >&2
+  echo "    Apple Development certificate." >&2
+  SIGN_ARGS=(CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
+             CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=YES)
+fi
+
 echo "==> Building $PROJ"
 xcodebuild -project "$PROJ" \
   -scheme "$APP_NAME" \
   -configuration Release \
   -derivedDataPath "$BUILD/DerivedData" \
   CONFIGURATION_BUILD_DIR="$INSTALL_DIR" \
-  CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" \
-  CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=YES \
+  "${SIGN_ARGS[@]}" \
   build
 
 APP="$INSTALL_DIR/$APP_NAME.app"
