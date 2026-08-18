@@ -1,0 +1,54 @@
+:root { color-scheme: light dark; }
+body {
+  margin: 0; padding: 32px 20px;
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  color: #1d1d1f; background: #f5f5f7;
+}
+main { max-width: 620px; margin: 0 auto; }
+h1 { font-size: 22px; margin: 0 0 20px; }
+h2 { font-size: 15px; margin: 0 0 12px; }
+section {
+  background: #fff; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+.field { display: block; margin-bottom: 12px; }
+.field > span { display: block; font-size: 12px; color: #6e6e73; margin-bottom: 4px; }
+select, input[type=password] {
+  width: 100%; font: inherit; padding: 6px 8px; border-radius: 7px;
+  border: 1px solid rgba(0,0,0,0.2); background: #fff; color: inherit; box-sizing: border-box;
+}
+.check { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+.row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.btn {
+  appearance: none; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 7px;
+  border: 1px solid rgba(0,0,0,0.2); background: #fff; color: inherit; cursor: pointer;
+}
+.btn:hover { background: #f0f0f2; }
+.hint { font-size: 12px; color: #6e6e73; margin: 6px 0 0; }
+.hint--ok { color: #1d7a3e; }
+.hint--err { color: #c0392b; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 12px;
+  padding: 4px 9px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.18); cursor: pointer;
+  user-select: none;
+}
+.chip--on { background: #0071e3; border-color: #0071e3; color: #fff; }
+.sites { list-style: none; margin: 0; padding: 0; }
+.sites li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 13px;
+}
+.sites li:last-child { border-bottom: 0; }
+.sites .host { flex: 1; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.sites .policy { font-size: 12px; color: #6e6e73; }
+@media (prefers-color-scheme: dark) {
+  body { background: #1c1c1e; color: #f5f5f7; }
+  section { background: #2c2c2e; box-shadow: none; }
+  select, input[type=password], .btn { background: #3a3a3c; border-color: rgba(255,255,255,0.18); }
+  .btn:hover { background: #48484a; }
+  .field > span, .hint, .sites .policy { color: #aeaeb2; }
+  .chip { border-color: rgba(255,255,255,0.2); }
+  .chip--on { background: #0a84ff; border-color: #0a84ff; }
+  .sites li { border-bottom-color: rgba(255,255,255,0.1); }
+}

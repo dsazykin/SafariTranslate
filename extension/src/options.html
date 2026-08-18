@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SafariTranslate Settings</title>
+<link rel="stylesheet" href="options.css">
+<body>
+<main>
+  <h1>SafariTranslate</h1>
+
+  <section>
+    <h2>Translation service</h2>
+    <label class="field">
+      <span>Provider</span>
+      <select id="provider">
+        <option value="googleFree">Google — free, no API key</option>
+        <option value="googleCloud">Google Cloud Translation — API key</option>
+        <option value="deepl">DeepL — API key</option>
+      </select>
+    </label>
+    <p class="hint" id="providerHint"></p>
+
+    <label class="field" id="keyField" hidden>
+      <span>API key</span>
+      <input type="password" id="key" autocomplete="off" spellcheck="false">
+    </label>
+    <div class="row">
+      <button id="test" class="btn">Test connection</button>
+      <span id="testResult" class="hint"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Behaviour</h2>
+    <label class="field">
+      <span>Translate pages into</span>
+      <select id="target"></select>
+    </label>
+    <label class="check"><input type="checkbox" id="autoTranslate">
+      Translate automatically, without asking</label>
+    <label class="check"><input type="checkbox" id="showBanner">
+      Offer a “Translate this page?” bar on foreign-language pages</label>
+    <label class="check"><input type="checkbox" id="cacheEnabled">
+      Cache translations (re-visited pages cost nothing)</label>
+    <div class="row">
+      <button id="clearCache" class="btn">Clear cache</button>
+      <span id="cacheResult" class="hint"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Never translate these languages</h2>
+    <p class="hint">Languages you already read. Pages in these are left alone.</p>
+    <div id="neverLangs" class="chips"></div>
+  </section>
+
+  <section>
+    <h2>Site rules</h2>
+    <p class="hint" id="noSites">No per-site rules yet. Set them from the toolbar popup.</p>
+    <ul id="sites" class="sites"></ul>
+  </section>
+</main>
+<script type="module" src="options.js"></script>
+</body>
